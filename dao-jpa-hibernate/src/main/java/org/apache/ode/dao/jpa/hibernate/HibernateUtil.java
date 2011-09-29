@@ -52,6 +52,8 @@ public class HibernateUtil {
 
     private static final Map<String, TransactionManager> _txManagers = Collections.synchronizedMap(new HashMap<String, TransactionManager>());
     private static final Map<String, DataSource> _dataSources = Collections.synchronizedMap(new HashMap<String,DataSource>());
+    
+    private static boolean ddlPopulated = false;
 
     public static void registerTransactionManager(String uuid, TransactionManager txm) {
         _txManagers.put(uuid, txm);
@@ -104,8 +106,12 @@ public class HibernateUtil {
         }
 
         if (Boolean.valueOf(odeConfig.getProperty(OdeConfigProperties.PROP_DB_EMBEDDED_CREATE, "true"))) {
-            props.put(Environment.HBM2DDL_AUTO, "create-drop");
-            __log.debug("create-drop DDL by Hibernate automatically");
+        	//dirty hack, due to https://hibernate.onjira.com/browse/HHH-6667
+        	if (!ddlPopulated) {
+        		props.put(Environment.HBM2DDL_AUTO, "create");
+        		ddlPopulated = true;
+        		__log.debug("create-drop DDL by Hibernate automatically");
+        	}
         }
 
         if (__log.isDebugEnabled()) {
