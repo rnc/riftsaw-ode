@@ -52,8 +52,6 @@ public class HibernateUtil {
 
     private static final Map<String, TransactionManager> _txManagers = Collections.synchronizedMap(new HashMap<String, TransactionManager>());
     private static final Map<String, DataSource> _dataSources = Collections.synchronizedMap(new HashMap<String,DataSource>());
-    
-    private static boolean ddlPopulated = false;
 
     public static void registerTransactionManager(String uuid, TransactionManager txm) {
         _txManagers.put(uuid, txm);
@@ -106,10 +104,10 @@ public class HibernateUtil {
         }
 
         if (Boolean.valueOf(odeConfig.getProperty(OdeConfigProperties.PROP_DB_EMBEDDED_CREATE, "true"))) {
-        	//dirty hack, due to https://hibernate.onjira.com/browse/HHH-6667
-        	if (!ddlPopulated) {
+        	//dirty hack, due to https://hibernate.onjira.com/browse/HHH-6667, we only populated once ('ode-bpel' pu) for those PUs
+        	String persistenceUnit = odeConfig.getProperty(OdeConfigProperties.PERSISTENCE_UNIT_NAME);
+        	if ("test".equals(odeConfig.getProperty(OdeConfigProperties.ENVIRONMENT)) || "ode-bpel".equals(persistenceUnit)) {
         		props.put(Environment.HBM2DDL_AUTO, "create");
-        		ddlPopulated = true;
         		__log.debug("create-drop DDL by Hibernate automatically");
         	}
         }

@@ -48,6 +48,7 @@ public abstract class BaseTestDAO extends TestCase {
         _txm = new EmbeddedGeronimoFactory().getTransactionManager();
         Properties props = new Properties();
         props.setProperty(OdeConfigProperties.PROP_DAOCF, System.getProperty(OdeConfigProperties.PROP_DAOCF,OdeConfigProperties.DEFAULT_DAOCF_CLASS));
+        props.put(OdeConfigProperties.ENVIRONMENT, "test");
         OdeConfigProperties odeProps = new OdeConfigProperties(props,"");
 		_db = new Database(odeProps);
         _db.setTransactionManager(_txm);

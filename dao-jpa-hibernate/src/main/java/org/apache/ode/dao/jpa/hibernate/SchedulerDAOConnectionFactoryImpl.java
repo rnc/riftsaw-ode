@@ -49,6 +49,7 @@ public class SchedulerDAOConnectionFactoryImpl implements SchedulerDAOConnection
     public void init(Properties odeConfig, TransactionManager txm, Object env) {
         this._txm = txm;
         this._ds = (DataSource) env;
+        odeConfig.put(OdeConfigProperties.PERSISTENCE_UNIT_NAME, "ode-scheduler");
         Map emfProperties = HibernateUtil.buildConfig(OdeConfigProperties.PROP_DAOCF_SCHEDULER + ".", odeConfig, _txm, _ds);
         _emf = Persistence.createEntityManagerFactory("ode-scheduler", emfProperties);
 

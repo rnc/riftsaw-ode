@@ -51,6 +51,7 @@ public class ProcessStoreTest extends TestCase {
         Properties props = new Properties();
         props.setProperty(OdeConfigProperties.PROP_DAOCF_STORE,System.getProperty(OdeConfigProperties.PROP_DAOCF_STORE,OdeConfigProperties.DEFAULT_DAOCF_STORE_CLASS));
         props.setProperty(OdeConfigProperties.PROP_CACHE_PROVIDER, OdeConfigProperties.DEFAULT_CACHE_PROVIDER);
+        props.put(OdeConfigProperties.ENVIRONMENT, "test");
         OdeConfigProperties odeProps = new OdeConfigProperties(props, "");
         _db = new Database(odeProps);
         TxManager tx = new TxManager(odeProps);

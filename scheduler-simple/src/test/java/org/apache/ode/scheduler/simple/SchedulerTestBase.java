@@ -49,6 +49,7 @@ public class SchedulerTestBase extends TestCase{
    public void setUp() throws Exception {
      Properties props = getProperties();
      props.put(OdeConfigProperties.PROP_DAOCF_SCHEDULER, System.getProperty(OdeConfigProperties.PROP_DAOCF_SCHEDULER,OdeConfigProperties.DEFAULT_DAOCF_SCHEDULER_CLASS));
+     props.put(OdeConfigProperties.ENVIRONMENT, "test");
      OdeConfigProperties odeProps = new OdeConfigProperties(props, "");
      TxManager tx = new TxManager(odeProps);
      _txm = tx.createTransactionManager();

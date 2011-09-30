@@ -49,6 +49,7 @@ public class ConfStoreDAOConnectionFactoryImpl implements ConfStoreDAOConnection
   public void init(Properties odeConfig,TransactionManager txm, Object env) {
     this._txm = txm;
     this._ds = (DataSource) env;
+    odeConfig.put(OdeConfigProperties.PERSISTENCE_UNIT_NAME, "ode-store");
     Map emfProperties = HibernateUtil.buildConfig(OdeConfigProperties.PROP_DAOCF_STORE + ".", odeConfig, _txm, _ds);
     _emf = Persistence.createEntityManagerFactory("ode-store", emfProperties);
     

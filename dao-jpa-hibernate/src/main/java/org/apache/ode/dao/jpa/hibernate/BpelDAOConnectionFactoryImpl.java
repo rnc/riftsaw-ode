@@ -49,6 +49,7 @@ public class BpelDAOConnectionFactoryImpl implements BpelDAOConnectionFactory {
     public void init(Properties odeConfig, TransactionManager txm, Object env) {
         this._txm = txm;
         this._ds = (DataSource) env;
+        odeConfig.put(OdeConfigProperties.PERSISTENCE_UNIT_NAME, "ode-bpel");
         Map emfProperties = HibernateUtil.buildConfig(OdeConfigProperties.PROP_DAOCF + ".", odeConfig, _txm, _ds);
         _emf = Persistence.createEntityManagerFactory("ode-bpel", emfProperties);
         

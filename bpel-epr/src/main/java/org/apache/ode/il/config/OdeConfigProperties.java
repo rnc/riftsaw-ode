@@ -131,6 +131,9 @@ public class OdeConfigProperties {
     public static String DEFAULT_DAOCF_STORE_CLASS = "org.apache.ode.dao.jpa.hibernate.ConfStoreDAOConnectionFactoryImpl";
     public static String DEFAULT_DAOCF_SCHEDULER_CLASS = "org.apache.ode.scheduler.simple.jdbc.SchedulerDAOConnectionFactoryImpl";
     
+    public static String PERSISTENCE_UNIT_NAME = "persistence.unit.name";
+    public static String ENVIRONMENT = "environment";
+    
     static {
         String odep = System.getProperty("ode.persistence");
         if (odep != null &&
